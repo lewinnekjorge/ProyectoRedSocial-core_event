@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "779332333665",
+    "project_id": "core-event",
+    "storage_bucket": "core-event.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779332333665:android:528dc30231aba1c8623a20",
+        "android_client_info": {
+          "package_name": "com.quantumsdata.core_event"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779332333665-s252ksqjut21pt9hhko11eu6ilr96a6e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.quantumsdata.core_event",
+            "certificate_hash": "85d548e5a340665520ca5c0ab5f9bd7d8cf95662"
+          }
+        },
+        {
+          "client_id": "779332333665-bolcg0aaij6uba3af43c3o3bj6becrnm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmDX8GoEYXa0rRUAZQ3alfsDAnFSgcqYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779332333665-bolcg0aaij6uba3af43c3o3bj6becrnm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
