@@ -13,7 +13,6 @@ class StateCard extends StatelessWidget {
   late StatusManager manager = StatusManager();
   late Stream<QuerySnapshot<Map<String, dynamic>>> statusesStream;
 
-
   // StateCard constructor
   StateCard(
       {Key? key,
@@ -24,12 +23,13 @@ class StateCard extends StatelessWidget {
       required this.onDelete})
       : super(key: key);
 
-@override
+  @override
   void initState() {
     //super.initState();
     manager = StatusManager();
     statusesStream = manager.getStatusesStream();
   }
+
   // We create a Stateless widget that contais an AppCard,
   // Passing all the customizable views as parameters
   @override
@@ -56,19 +56,18 @@ class StateCard extends StatelessWidget {
       ),
       // topRightWidget widget as an IconButton
       topRightWidget: IconButton(
-        icon: Icon(
-          Icons.delete,
-          color: primaryColor,
-        ),
-        onPressed: (){
-          StatusController statusController = Get.find();
-          
-          print(statusController.liststados[index]);
-          UserStatus status = statusController.liststados[index];
-          manager.removeStatus(status);
-          statusController.borrarestado(index);
-        }
-      ),      
+          icon: Icon(
+            Icons.delete,
+            color: primaryColor,
+          ),
+          onPressed: () {
+            StatusController statusController = Get.find();
+
+            //print(statusController.liststados[index]);
+            UserStatus status = statusController.liststados[index];
+            manager.removeStatus(status);
+            statusController.borrarestado(index);
+          }),
     );
   }
 }

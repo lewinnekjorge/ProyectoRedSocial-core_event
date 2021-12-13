@@ -1,9 +1,10 @@
-import 'package:core_event/domain/controller/newstatus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:core_event/domain/controller/authentication_controller.dart';
 import 'package:core_event/domain/controller/chat_controller.dart';
+import 'package:core_event/domain/use_cases/controllers/connectivity.dart';
 import 'package:core_event/domain/use_cases/controllers/ui.dart';
 import 'package:core_event/domain/use_cases/theme_management.dart';
 import 'package:core_event/domain/use_cases/auth_management.dart';
@@ -16,6 +17,7 @@ import 'package:core_event/ui/pages/content_start.dart';
 import 'package:core_event/ui/pages/authentication/usr_login.dart';
 import 'package:core_event/ui/pages/authentication/usr_register.dart';
 import 'package:core_event/ui/pages/content/content_main_screen.dart';
+import 'package:core_event/domain/controller/newstatus.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -103,6 +105,14 @@ class _AppState extends State<App> {
       } else {
         Get.offNamed('/');
       }
+    });
+    // Connectivity Controller
+    ConnectivityController connectivityController =
+        Get.put(ConnectivityController());
+    // Connectivity stream
+    Connectivity().onConnectivityChanged.listen((connectivityStatus) {
+      //log("connection changed");
+      connectivityController.connectivity = connectivityStatus;
     });
   }
 

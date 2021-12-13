@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-//import 'package:core_event/domain/controller/authentication_controller.dart';
 import 'package:core_event/domain/use_cases/controllers/authentication.dart';
 
 class RegisterWidget extends StatefulWidget {
@@ -23,32 +22,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   final controllerName = TextEditingController();
   final controllerEmail = TextEditingController();
   final controllerPassword = TextEditingController();
-  //AuthenticationController authenticationController = Get.find();
   final controller = Get.find<AuthController>();
-
-  _signup(name, email, password) async {
-    try {
-      await controller.manager.signUp(
-        name:name,
-        email: email,
-        password: password,
-      );
-      Get.offNamed('/feed_screen');
-      Get.snackbar(
-        "Se Registro",
-        'OK',
-        icon: const Icon(Icons.person, color: Colors.red),
-        snackPosition: SnackPosition.BOTTOM,
-      );
-    } catch (err) {
-      Get.snackbar(
-        "No se Registro",
-        err.toString(),
-        icon: const Icon(Icons.person, color: Colors.red),
-        snackPosition: SnackPosition.BOTTOM,
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +40,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Form(
           key: _formKey,
           child: Column(
@@ -74,10 +48,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             children: [
               const Text(
                 "Información de registro",
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 15),
               ),
               const SizedBox(
-                height: 20,
+                height: 15,
               ),
               TextFormField(
                 controller: controllerName,
@@ -86,7 +60,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   labelText: 'Nombre del usuario',
                   hintText: 'Nombre',
                 ),
-                maxLength: 25,
+                maxLength: 30,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Digite su Nombre";
@@ -97,7 +71,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 },
               ),
               const SizedBox(
-                height: 30,
+                height: 15,
               ),
               TextFormField(
                 controller: controllerEmail,
@@ -119,7 +93,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 },
               ),
               const SizedBox(
-                height: 30,
+                height: 15,
               ),
               TextFormField(
                 controller: controllerPassword,
@@ -143,26 +117,29 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 },
               ),
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
               Material(
                 elevation: 5,
                 color: Colors.deepPurple,
                 borderRadius: BorderRadius.circular(30),
                 child: MaterialButton(
-                  onPressed: () {
+                  onPressed: () async {
                     bool isValid = true;
                     if (isValid) {
                       final form = _formKey.currentState;
                       form!.save();
                       FocusScope.of(context).requestFocus(FocusNode());
                       if (_formKey.currentState!.validate()) {
-                        _signup(controllerName.text, controllerEmail.text, controllerPassword.text);
+                        await controller.manager.signUp(
+                            name: controllerName.text,
+                            email: controllerEmail.text,
+                            password: controllerPassword.text);
                       }
                     }
                   },
                   minWidth: 320,
-                  height: 30,
+                  height: 25,
                   child: const Text(
                     'Crear Cuenta',
                     style: TextStyle(color: Colors.white, fontSize: 20),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/get.dart';
-//import 'package:core_event/domain/controller/authentication_controller.dart';
 import 'package:core_event/domain/use_cases/controllers/authentication.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -17,32 +16,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   final _formKey = GlobalKey<FormState>();
   final controllerEmail = TextEditingController();
   final controllerPassword = TextEditingController();
-  //AuthenticationController authenticationController = Get.find();
   final controller = Get.find<AuthController>();
-
-  _login(email, password) async {
-    //print('_login $theEmail $thePassword');
-    try {
-      await controller.manager.signIn(
-        email: email,
-        password: password,
-      );
-      Get.offNamed('/feed_screen');
-      Get.snackbar(
-        "Acceso Permitido",
-        'OK',
-        icon: const Icon(Icons.person, color: Colors.red),
-        snackPosition: SnackPosition.BOTTOM,
-      );
-    } catch (err) {
-      Get.snackbar(
-        "Login",
-        err.toString(),
-        icon: const Icon(Icons.person, color: Colors.red),
-        snackPosition: SnackPosition.BOTTOM,
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +31,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             )),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(8),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,7 +46,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                       style: TextStyle(fontSize: 20),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 30,
+                      width: 300,
                     ),
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
@@ -82,7 +57,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         labelText: 'Accede con tu email',
                         hintText: 'Accede con tu email',
                       ),
-                      maxLength: 30,
+                      maxLength: 35,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "Digite su email";
@@ -93,6 +68,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     ),
                     const SizedBox(
                       height: 30,
+                      width: 300,
                     ),
                     TextFormField(
                       controller: controllerPassword,
@@ -128,8 +104,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                             final form = _formKey.currentState;
                             form!.save();
                             if (_formKey.currentState!.validate()) {
-                              await _login(controllerEmail.text,
-                                  controllerPassword.text);
+                              await controller.manager.signIn(
+                                  email: controllerEmail.text,
+                                  password: controllerPassword.text);
                             }
                           }
                         },
