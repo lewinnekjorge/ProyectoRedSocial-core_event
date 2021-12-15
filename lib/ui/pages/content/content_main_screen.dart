@@ -33,6 +33,7 @@ class _FeedScreenState extends State<FeedScreen> {
     final UIController controller = Get.find<UIController>();
     final AuthController authController = Get.find<AuthController>();
     User user = authController.currentUser!;
+    Color primaryColor = Theme.of(context).colorScheme.primary;
     return Scaffold(
       appBar: CustomAppBar(
         context: context,
@@ -57,7 +58,7 @@ class _FeedScreenState extends State<FeedScreen> {
             _selectedTab = index;
           });
         },
-        activeColor: Colors.deepPurple,
+        activeColor: primaryColor,
         currentIndex: _selectedTab,
         items: const [
           BottomNavigationBarItem(

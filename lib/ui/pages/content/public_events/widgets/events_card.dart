@@ -55,7 +55,7 @@ class EventsCard extends StatelessWidget {
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(3.0),
                 child: Icon(
                   Icons.architecture,
                   color: primaryColor,
@@ -67,7 +67,7 @@ class EventsCard extends StatelessWidget {
               ),
               const Spacer(),
               Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(3.0),
                 child: Icon(
                   Icons.developer_mode_outlined,
                   color: primaryColor,
@@ -79,7 +79,7 @@ class EventsCard extends StatelessWidget {
               ),
               const Spacer(),
               Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(3.0),
                 child: Icon(
                   Icons.payments_outlined,
                   color: primaryColor,

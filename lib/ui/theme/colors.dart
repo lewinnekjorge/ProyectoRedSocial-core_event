@@ -36,7 +36,7 @@ class AppColors {
   );
 
   static ColorScheme darkScheme = const ColorScheme.dark(
-    primary: primaryColor,
+    primary: darkPrimaryColor,
     primaryVariant: darkPrimaryColor,
     secondary: accentColor,
   );

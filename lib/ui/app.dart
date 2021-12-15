@@ -7,6 +7,10 @@ import 'package:core_event/domain/controller/chat_controller.dart';
 import 'package:core_event/domain/use_cases/controllers/connectivity.dart';
 import 'package:core_event/domain/use_cases/controllers/ui.dart';
 import 'package:core_event/domain/use_cases/theme_management.dart';
+import 'package:core_event/domain/use_cases/controllers/permissions.dart';
+import 'package:core_event/domain/use_cases/permission_management.dart';
+import 'package:core_event/domain/use_cases/controllers/location.dart';
+import 'package:core_event/domain/use_cases/controllers/notification.dart';
 import 'package:core_event/domain/use_cases/auth_management.dart';
 import 'package:core_event/domain/use_cases/controllers/authentication.dart';
 import 'package:core_event/domain/repositories/auth.dart';
@@ -93,6 +97,11 @@ class _AppState extends State<App> {
       uiController.manager.changeTheme(isDarkMode: isDarkMode);
     });
 
+    // Permition COntroller
+    PermissionsController permissionsController =
+        Get.put(PermissionsController());
+    permissionsController.permissionManager = PermissionManager();
+
     // Auth Controller
     AuthController authController = Get.put(AuthController());
 
@@ -114,6 +123,12 @@ class _AppState extends State<App> {
       //log("connection changed");
       connectivityController.connectivity = connectivityStatus;
     });
+    // Location Controller
+    Get.put(LocationController());
+    // Notification controller
+    NotificationController notificationController =
+        Get.put(NotificationController());
+    notificationController.initialize();
   }
 
   _firebaseStateInit() {
