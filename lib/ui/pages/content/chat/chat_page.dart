@@ -41,10 +41,22 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget _item(Message element, int posicion, String uid, String? msg) {
-    logInfo('Current user? -> ${uid == element.user} msg -> ${msg = element.text}');
+    logInfo(
+        'Current user? -> ${uid == element.user} msg -> ${msg = element.text}');
+    var _radious = const Radius.circular(12);
+    var _corner = const Radius.circular(4);
+    var remote = uid != element.user;
     return Card(
       margin: const EdgeInsets.all(4.0),
+      elevation: 10,
       color: uid == element.user ? Colors.orange[400] : Colors.grey,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: const Radius.circular(12),
+            topRight: const Radius.circular(12),
+            bottomLeft: remote ? _corner : _radious,
+            bottomRight: remote ? _radious : _corner),
+      ),
       child: ListTile(
         onTap: () => chatController.updateMsg(element),
         onLongPress: () => chatController.deleteMsg(element, posicion),
@@ -62,8 +74,11 @@ class _ChatScreenState extends State<ChatScreen> {
     return GetX<ChatController>(builder: (controller) {
       WidgetsBinding.instance!.addPostFrameCallback((_) => _scrollToEnd());
       return ListView.builder(
-        itemCount: chatController.messages.length,
+        cacheExtent: 100,
         controller: _scrollController,
+        reverse: false,
+        shrinkWrap: true,
+        itemCount: chatController.messages.length,
         itemBuilder: (context, index) {
           var element = chatController.messages[index];
           return _item(element, index, uid, msg);
@@ -79,6 +94,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget _textInput() {
+    Color primaryColor = Theme.of(context).colorScheme.primary;
     return Row(
       children: [
         Expanded(
@@ -87,27 +103,59 @@ class _ChatScreenState extends State<ChatScreen> {
             margin: const EdgeInsets.only(left: 5.0, top: 5.0),
             child: TextField(
               key: const Key('MsgTextField'),
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Your message',
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(
+                    color: Colors.grey,
+                    width: 0.0,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(
+                    color: primaryColor,
+                    width: 0.0,
+                  ),
+                ),
+                contentPadding: const EdgeInsets.all(8.0),
+                labelText: 'Escribe tu mensaje',
+                hintText: 'Escribe tu Mensaje.....',
               ),
               onSubmitted: (value) {
-                _sendMsg(_controller.text);
-                _controller.clear();
+                _sendButtonTap();
               },
               controller: _controller,
             ),
           ),
         ),
-        TextButton(
+        IconButton(
             key: const Key('sendButton'),
-            child: const Text('Send'),
+            icon: const Icon(Icons.send),
             onPressed: () {
-              _sendMsg(_controller.text);
-              _controller.clear();
+              _sendButtonTap();
             })
       ],
     );
+  }
+
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
+  _sendButtonTap() async {
+    if (_controller.text.isEmpty) {
+      return;
+    }
+    _sendMsg(_controller.text);
+    _clearMessage();
+  }
+
+  _clearMessage() {
+    _controller.text = '';
   }
 
   _scrollToEnd() async {
