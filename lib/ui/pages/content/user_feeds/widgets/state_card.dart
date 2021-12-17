@@ -8,27 +8,27 @@ import 'package:get/get.dart';
 
 class StateCard extends StatelessWidget {
   final String title, content, picUrl;
-  final int index;
+  //final int index;
   final VoidCallback onDelete;
-  late StatusManager manager = StatusManager();
-  late Stream<QuerySnapshot<Map<String, dynamic>>> statusesStream;
+  //late StatusManager manager = StatusManager();
+  //late Stream<QuerySnapshot<Map<String, dynamic>>> statusesStream;
 
   // StateCard constructor
   StateCard(
       {Key? key,
       required this.title,
-      required this.index,
+      //required this.index,
       required this.content,
       required this.picUrl,
       required this.onDelete})
       : super(key: key);
 
-  @override
-  void initState() {
-    //super.initState();
-    manager = StatusManager();
-    statusesStream = manager.getStatusesStream();
-  }
+  // @override
+  // void initState() {
+  //   //super.initState();
+  //   manager = StatusManager();
+  //   statusesStream = manager.getStatusesStream();
+  // }
 
   // We create a Stateless widget that contais an AppCard,
   // Passing all the customizable views as parameters
@@ -60,14 +60,15 @@ class StateCard extends StatelessWidget {
             Icons.delete,
             color: primaryColor,
           ),
-          onPressed: () {
-            StatusController statusController = Get.find();
+          onPressed: onDelete,//() {
+            //StatusController statusController = Get.find();
 
             //print(statusController.liststados[index]);
-            UserStatus status = statusController.liststados[index];
-            manager.removeStatus(status);
-            statusController.borrarestado(index);
-          }),
+            //UserStatus status = statusController.liststados[index];
+            //manager.removeStatus(status);
+            //statusController.borrarestado(index);
+          //}
+          ),
     );
   }
 }

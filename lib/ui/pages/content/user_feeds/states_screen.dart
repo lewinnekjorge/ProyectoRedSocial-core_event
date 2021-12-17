@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core_event/domain/controller/newstatus.dart';
+import 'package:core_event/domain/models/user_status.dart';
+import 'package:core_event/domain/use_cases/controllers/connectivity.dart';
 import 'package:core_event/domain/use_cases/status_management.dart';
 import 'package:core_event/ui/pages/content/user_feeds/widgets/newcard.dart';
 import 'package:core_event/ui/pages/content/user_feeds/widgets/state_card.dart';
@@ -19,45 +21,114 @@ class StatesScreen extends StatefulWidget {
 class _State extends State<StatesScreen> {
   late final StatusManager manager;
   late Stream<QuerySnapshot<Map<String, dynamic>>> statusesStream;
+  late ConnectivityController controller;
+
   final items = [];
   @override
   void initState() {
     super.initState();
     manager = StatusManager();
     statusesStream = manager.getStatusesStream();
+    controller = Get.find<ConnectivityController>();
+
   }
 
   @override
   Widget build(BuildContext context) {
-    return GetX<StatusController>(builder: (statuscontrolador){
-      return Stack(
-        children: [
-          ListView.builder(
-            itemCount: statuscontrolador.liststados.length,
-            itemBuilder: (context, index) {
-              return StateCard(
-                index: index,
-                title: statuscontrolador.liststados[index].title,//'Prueba',
-                content: statuscontrolador.liststados[index].message,//'Lorem ipsum dolor sit amet.',
-                picUrl: statuscontrolador.liststados[index].picUrl,//'https://uifaces.co/our-content/donated/gPZwCbdS.jpg',
-                onDelete: () => {},
-              );
+    //return GetX<StatusController>(builder: (statuscontrolador){
+      return Column(
+      children: [
+        Expanded(
+          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            stream: statusesStream,
+            builder: (BuildContext context,
+                AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+              if (snapshot.hasData) {
+                final items = manager.extractStatuses(snapshot.data!);
+                return ListView.builder(
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    UserStatus status = items[index];
+                    return StateCard(
+                      //index: index,
+                      title: status.title,
+                      content: status.message,
+                      picUrl: status.picUrl,
+                      onDelete: () {
+                        manager.removeStatus(status);
+                      },
+                    );
+                  },
+                );
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              }
+
+              // By default, show a loading spinner.
+              return const Center(child: CircularProgressIndicator());
             },
           ),
+        ),
         Positioned(
             right: 20,
             bottom: 30,
-            child: FloatingActionButton(
+            child: FloatingActionButton(           
               onPressed: () {
-                Get.dialog(
-                  PublishDialog(manager: manager,)
-                );
+                if (controller.connected) {
+                  Get.dialog(
+                    PublishDialog(
+                      manager: manager,
+                    ),
+                  );
+                } else {
+                  Get.snackbar(
+                    "Error de conectividad",
+                    "No se encuentra conectado a internet.",
+                  );
+                
+                }
+                
               },
               child: const Icon(Icons.add),
-            ))
+            ),
+          ),
       ],
     );
-    });
+    //   return Stack(
+    //     children: [
+    //       ListView.builder(
+    //         itemCount: statuscontrolador.liststados.length,
+    //         itemBuilder: (context, index) {
+    //           return StateCard(
+    //             index: index,
+    //             title: statuscontrolador.liststados[index].title,//'Prueba',
+    //             content: statuscontrolador.liststados[index].message,//'Lorem ipsum dolor sit amet.',
+    //             picUrl: statuscontrolador.liststados[index].picUrl,//'https://uifaces.co/our-content/donated/gPZwCbdS.jpg',
+    //             onDelete: () => {},
+    //           );
+    //         },
+    //       ),
+    //     Positioned(
+    //         right: 20,
+    //         bottom: 30,
+    //         child: FloatingActionButton(
+    //           onPressed: () {
+    //             Get.dialog(
+    //               PublishDialog(manager: manager,)
+    //             );
+    //           },
+    //           child: const Icon(Icons.add),
+    //         ))
+    //   ],
+    // );
+    
+    
+    
+    
+    
+    
+    
+    //});
     
   }
 }

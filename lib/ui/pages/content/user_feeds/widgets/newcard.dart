@@ -70,7 +70,7 @@ class _State extends State<PublishDialog> {
                           picUrl: 'https://uifaces.co/our-content/donated/gPZwCbdS.jpg', 
                           email: user.email!
                           );
-                        estadocontrolador.addstatusmodel(status);
+                        //estadocontrolador.addstatusmodel(status); //Comentado para enlazar firebase
                         widget.manager.sendStatus(status).then(
                         (value) => Get.back());
                               //   //);
@@ -85,5 +85,10 @@ class _State extends State<PublishDialog> {
         ),
       ),
     );
+  }
+  @override
+  void dispose() {
+    stateController.dispose();
+    super.dispose();
   }
 }

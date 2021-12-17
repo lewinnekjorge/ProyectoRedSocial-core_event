@@ -6,16 +6,16 @@ class StatusManager {
   final _database = FirestoreDatabase();
 
   Future<void> sendStatus(UserStatus status) async {
-    await _database.add(collectionPath: "estadoprueba", data: status.toJson());
+    await _database.add(collectionPath: "estados", data: status.toJson());
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getStatusesStream() {
-    return _database.listenCollection(collectionPath: "estadoprueba");
+    return _database.listenCollection(collectionPath: "estados");
   }
 
   Future<List<UserStatus>> getStatusesOnce() async {
     final statusesData =
-        await _database.readCollection(collectionPath: "estadoprueba");
+        await _database.readCollection(collectionPath: "estados");
     return _extractInstances(statusesData);
   }
 
