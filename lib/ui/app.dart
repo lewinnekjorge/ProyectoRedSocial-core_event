@@ -55,7 +55,7 @@ class _AppState extends State<App> {
           _firebaseStateInit();
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Core Event v1.2',
+            title: 'Core Event v2',
             //theme: ThemeData(primarySwatch: Colors.black),
             theme: MyTheme.ligthTheme,
             // Establecemos el tema oscuro

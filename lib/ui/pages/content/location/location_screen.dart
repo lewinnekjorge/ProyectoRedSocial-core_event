@@ -43,7 +43,7 @@ class _State extends State<LocationScreen> {
             () => locationController.location != null
                 ? LocationCard(
                     key: const Key("myLocationCard"),
-                    title: 'MI UBICACIÓN',
+                    title: 'MI UBICACIÓN ACTUAL ES',
                     lat: locationController.location!.lat,
                     long: locationController.location!.long,
                     onUpdate: () {
@@ -58,7 +58,7 @@ class _State extends State<LocationScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(
-              'CERCA DE MÍ',
+              'QUIENES ESTAN CERCA DE MÍ',
               style: Theme.of(context).textTheme.headline1,
             ),
           ),

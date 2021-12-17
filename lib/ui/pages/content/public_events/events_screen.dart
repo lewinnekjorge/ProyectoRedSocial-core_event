@@ -1,48 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:core_event/data/services/work_pool.dart';
-import 'package:core_event/domain/models/public_job.dart';
+import 'package:core_event/data/services/event_pool.dart';
+import 'package:core_event/domain/models/public_event.dart';
+import 'package:core_event/ui/pages/content/public_events/widgets/events_card.dart';
 import 'package:core_event/domain/use_cases/controllers/connectivity.dart';
-import 'widgets/events_card.dart';
 
-class PublicEventsScreen extends StatefulWidget {
-  // PublicOffersScreen empty constructor
-  const PublicEventsScreen({Key? key}) : super(key: key);
+class EventsScreen extends StatefulWidget {
+  const EventsScreen({Key? key}) : super(key: key);
 
   @override
   _State createState() => _State();
 }
 
-class _State extends State<PublicEventsScreen> {
-  late WorkPoolService service;
-  late Future<List<PublicJob>> futureJobs;
+class _State extends State<EventsScreen> {
+  late EventPoolService service;
+  late Future<List<EventModel>> futureEvents;
   late ConnectivityController connectivityController;
 
   @override
   void initState() {
     super.initState();
-    service = WorkPoolService();
-    futureJobs = service.fecthData();
+    service = EventPoolService();
+    futureEvents = service.fecthData();
     connectivityController = Get.find<ConnectivityController>();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<PublicJob>>(
-      future: futureJobs,
+    return FutureBuilder<List<EventModel>>(
+      future: futureEvents,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final items = snapshot.data!;
           return ListView.builder(
             itemCount: items.length,
             itemBuilder: (context, index) {
-              PublicJob job = items[index];
-              return EventsCard(
-                title: job.title,
-                content: job.description,
-                arch: job.category,
-                level: job.experience,
-                payment: job.payment,
+              EventModel event = items[index];
+              return ResponseCard(
+                title: event.title,
+                type: event.type,
+                address: event.address,
+                country: event.country,
+                city: event.city,
+                datetimeEvent: event.datetimeEvent,
                 onApply: () => {
                   Get.showSnackbar(
                     const GetSnackBar(

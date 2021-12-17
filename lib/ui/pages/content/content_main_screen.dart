@@ -7,7 +7,7 @@ import 'package:core_event/ui/widgets/appbar.dart';
 import 'package:core_event/domain/use_cases/controllers/authentication.dart';
 import 'package:core_event/domain/use_cases/controllers/ui.dart';
 import 'package:core_event/ui/pages/content/user_feeds/states_screen.dart';
-import 'package:core_event/ui/pages/content/public_events/public_events_screen.dart';
+import 'package:core_event/ui/pages/content/public_events/events_screen.dart';
 import 'package:core_event/ui/pages/content/chat/chat_page.dart';
 import 'package:core_event/ui/pages/content/location/location_screen.dart';
 import 'package:core_event/ui/pages/content/configuration/conf_screen.dart';
@@ -22,7 +22,7 @@ class _FeedScreenState extends State<FeedScreen> {
   int _selectedTab = 0;
   static final List<Widget> _widgets = <Widget>[
     const StatesScreen(),
-    const PublicEventsScreen(),
+    const EventsScreen(),
     const ChatScreen(),
     const LocationScreen(),
     const ConfScreen(),

@@ -1,20 +1,24 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:core_event/ui/widgets/card.dart';
 
-class EventsCard extends StatelessWidget {
-  final String title, content, arch, level, payment;
+class ResponseCard extends StatelessWidget {
+  final String title, type, address, country, city;
+  final DateTime datetimeEvent;
   final VoidCallback onApply;
 
   // OfferCard constructor
-  const EventsCard(
+  const ResponseCard(
       {Key? key,
       required this.title,
-      required this.content,
-      required this.arch,
-      required this.level,
-      required this.payment,
+      required this.type,
+      required this.address,
+      required this.country,
+      required this.city,
+      required this.datetimeEvent,
       required this.onApply})
       : super(key: key);
 
@@ -25,9 +29,9 @@ class EventsCard extends StatelessWidget {
     Color primaryColor = Theme.of(context).colorScheme.primary;
     return AppCard(
       key: const Key("eventsCard"),
-      title: title,
+      title: "Titulo: $title",
       content: Text(
-        content,
+        "Tipo de evento: $type",
         style: Theme.of(context).textTheme.bodyText1,
       ),
       // topRightWidget widget as an IconButton
@@ -37,12 +41,14 @@ class EventsCard extends StatelessWidget {
           color: primaryColor,
         ),
         onPressed: () {
-          Clipboard.setData(ClipboardData(text: content));
+          Clipboard.setData(ClipboardData(
+              text:
+                  '${title} -  Es un : ${type} - Pais : ${country} - Ciudad : ${city} - Direcciòn : ${address} - A las : ${datetimeEvent.toString()}'));
           Get.showSnackbar(
             const GetSnackBar(
               message:
                   "Se ha copiado el evento al portapapeles, para que lo compartas por chat.",
-              duration: Duration(seconds: 2),
+              duration: Duration(seconds: 3),
             ),
           );
         },
@@ -52,45 +58,61 @@ class EventsCard extends StatelessWidget {
       extraContent: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: Icon(
-                  Icons.architecture,
-                  color: primaryColor,
-                ),
+          Row(children: [
+            Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Icon(
+                Icons.wb_cloudy,
+                color: primaryColor,
               ),
-              Text(
-                arch,
-                style: Theme.of(context).textTheme.caption,
+            ),
+            Text(
+              " Pais: $country",
+              style: Theme.of(context).textTheme.caption,
+            ),
+            const Spacer(),
+          ]),
+          Row(children: [
+            Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Icon(
+                Icons.map,
+                color: primaryColor,
               ),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: Icon(
-                  Icons.developer_mode_outlined,
-                  color: primaryColor,
-                ),
+            ),
+            Text(
+              " Ciudad: $city",
+              style: Theme.of(context).textTheme.caption,
+            ),
+            const Spacer(),
+          ]),
+          Row(children: [
+            Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Icon(
+                Icons.location_city_rounded,
+                color: primaryColor,
               ),
-              Text(
-                level,
-                style: Theme.of(context).textTheme.caption,
+            ),
+            Text(
+              " $address",
+              style: Theme.of(context).textTheme.caption,
+            ),
+            const Spacer(),
+          ]),
+          Row(children: [
+            Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Icon(
+                Icons.date_range,
+                color: primaryColor,
               ),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: Icon(
-                  Icons.payments_outlined,
-                  color: primaryColor,
-                ),
-              ),
-              Text(
-                '\$$payment',
-                style: Theme.of(context).textTheme.caption,
-              ),
-            ],
-          ),
+            ),
+            Text(
+              " ${datetimeEvent.toString()}",
+              style: Theme.of(context).textTheme.caption,
+            ),
+          ]),
           const SizedBox(
             height: 8.0,
           ),
