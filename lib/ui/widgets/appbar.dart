@@ -33,8 +33,12 @@ class CustomAppBar extends AppBar {
           actions: [
             IconButton(
               key: const Key("themeAction"),
-              icon: const Icon(
-                Icons.brightness_4_rounded,
+              icon: Obx(
+                () => Icon(
+                  controller.darkMode
+                      ? Icons.light_mode_rounded
+                      : Icons.dark_mode_rounded,
+                ),
               ),
               onPressed: () {
                 controller.manager.changeTheme(isDarkMode: !Get.isDarkMode);

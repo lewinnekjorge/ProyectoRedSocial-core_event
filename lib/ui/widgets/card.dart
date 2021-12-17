@@ -21,7 +21,14 @@ class AppCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
+      elevation: 6,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12),
+            topRight: Radius.circular(12),
+            bottomLeft: Radius.circular(12),
+            bottomRight: Radius.circular(12)),
+      ),
       child: Container(
         padding: const EdgeInsets.only(
             top: 4.0, bottom: 16.0, left: 8.0, right: 8.0),

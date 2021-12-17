@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:core_event/data/model/message.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 
@@ -76,6 +78,12 @@ class ChatController extends GetxController {
           .child(message.key)
           .remove()
           .then((value) => messages.removeAt(index));
+      Get.snackbar(
+        "Eliminacion de Mensaje",
+        "Se elimino el mensaje",
+        icon: const Icon(Icons.person, color: Colors.red),
+        snackPosition: SnackPosition.BOTTOM,
+      );
     } catch (error) {
       logError("Error deleting msg $error");
       return Future.error(error);

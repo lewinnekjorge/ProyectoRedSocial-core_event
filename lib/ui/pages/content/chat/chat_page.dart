@@ -1,6 +1,7 @@
 import 'package:core_event/data/model/message.dart';
 import 'package:core_event/domain/controller/authentication_controller.dart';
 import 'package:core_event/domain/controller/chat_controller.dart';
+import 'package:core_event/ui/pages/content/chat/widgets/option.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 import 'package:flutter/material.dart';
@@ -46,26 +47,37 @@ class _ChatScreenState extends State<ChatScreen> {
     var _radious = const Radius.circular(12);
     var _corner = const Radius.circular(4);
     var remote = uid != element.user;
-    return Card(
-      margin: const EdgeInsets.all(4.0),
-      elevation: 10,
-      color: uid == element.user ? Colors.orange[400] : Colors.grey,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            topLeft: const Radius.circular(12),
-            topRight: const Radius.circular(12),
-            bottomLeft: remote ? _corner : _radious,
-            bottomRight: remote ? _radious : _corner),
-      ),
-      child: ListTile(
-        onTap: () => chatController.updateMsg(element),
-        onLongPress: () => chatController.deleteMsg(element, posicion),
-        title: Text(
-          msg!,
-          textAlign: uid == element.user ? TextAlign.right : TextAlign.left,
-        ),
-      ),
-    );
+    return SizedBox(
+        width: 200,
+        child: Card(
+          margin: const EdgeInsets.all(4.0),
+          elevation: 10,
+          color: uid == element.user ? Colors.orange[400] : Colors.grey,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: const Radius.circular(12),
+                topRight: const Radius.circular(12),
+                bottomLeft: remote ? _corner : _radious,
+                bottomRight: remote ? _radious : _corner),
+          ),
+          child: ListTile(
+            onTap: () => chatController.updateMsg(element),
+            onLongPress: () => {
+              Get.dialog(
+                DeleteMessage(
+                    actionAllowed: uid == element.user,
+                    onDelete: () {
+                      chatController.deleteMsg(element, posicion);
+                      Get.back();
+                    }),
+              ),
+            },
+            title: Text(
+              msg!,
+              textAlign: uid == element.user ? TextAlign.right : TextAlign.left,
+            ),
+          ),
+        ));
   }
 
   Widget _list() {
@@ -78,6 +90,7 @@ class _ChatScreenState extends State<ChatScreen> {
         controller: _scrollController,
         reverse: false,
         shrinkWrap: true,
+        padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
         itemCount: chatController.messages.length,
         itemBuilder: (context, index) {
           var element = chatController.messages[index];

@@ -16,10 +16,16 @@ class UIController extends GetxController {
     _initMode(manager);
   }
 
+  set darkMode(bool mode) {
+    _darkMode.value = mode;
+  }
+
   // Reactive Getters
   RxInt get reactiveScreenIndex => _screenIndex;
 
   RxBool get reactiveBrightness => _darkMode;
+
+  RxBool get reactiveDarkMode => _darkMode;
 
   // Getters
   int get screenIndex => _screenIndex.value;

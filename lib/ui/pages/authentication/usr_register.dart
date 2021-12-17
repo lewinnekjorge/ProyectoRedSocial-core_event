@@ -84,7 +84,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Digite su email";
-                  } else if (!value.contains('@')) {
+                  } else if (!value.contains('@') &&
+                      !value.contains(".co") &&
+                      !value.contains(".com") &&
+                      !value.contains(".com.co") &&
+                      !value.contains("edu.co")) {
                     return "Digite una direccion valida de email";
                   }
                 },
