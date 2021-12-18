@@ -7,7 +7,7 @@ class NotificationService implements NotificationInterface {
   @override
   Future<void> initialize() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
+        AndroidInitializationSettings('ic_stat_people');
     const InitializationSettings initializationSettings =
         InitializationSettings(android: initializationSettingsAndroid);
     await _plugin.initialize(initializationSettings);

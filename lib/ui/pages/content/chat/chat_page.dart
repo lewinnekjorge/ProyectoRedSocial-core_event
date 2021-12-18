@@ -50,6 +50,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return SizedBox(
         width: 200,
         child: Card(
+          key: const Key('charCard'),
           margin: const EdgeInsets.all(4.0),
           elevation: 10,
           color: uid == element.user ? Colors.orange[400] : Colors.grey,
@@ -65,11 +66,12 @@ class _ChatScreenState extends State<ChatScreen> {
             onLongPress: () => {
               Get.dialog(
                 DeleteMessage(
-                    actionAllowed: uid == element.user,
-                    onDelete: () {
-                      chatController.deleteMsg(element, posicion);
-                      Get.back();
-                    }),
+                  actionAllowed: uid == element.user,
+                  onDelete: () {
+                    chatController.deleteMsg(element, posicion);
+                    Get.back();
+                  },
+                ),
               ),
             },
             title: Text(

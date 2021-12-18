@@ -5,7 +5,7 @@ import 'package:core_event/domain/models/location.dart';
 import 'package:core_event/domain/use_cases/controllers/authentication.dart';
 import 'package:core_event/domain/use_cases/controllers/connectivity.dart';
 import 'package:core_event/domain/use_cases/controllers/location.dart';
-import 'package:core_event/domain/use_cases/controllers/notification.dart';
+import 'package:core_event/domain/use_cases/controllers/notifications.dart';
 import 'package:core_event/domain/use_cases/controllers/permissions.dart';
 import 'package:core_event/domain/use_cases/controllers/ui.dart';
 import 'package:core_event/domain/use_cases/location_management.dart';
@@ -74,9 +74,9 @@ class _State extends State<LocationScreen> {
                   if (snapshot.hasData) {
                     final items = snapshot.data!;
                     notificationController.show(
-                        title: 'Egresados cerca.',
+                        title: 'Personas cerca.',
                         body:
-                            'Hay ${items.length} egresados cerca de tu ubicación...');
+                            'Hay ${items.length} personas cerca de tu ubicación...');
                     return ListView.builder(
                       itemCount: items.length,
                       itemBuilder: (context, index) {

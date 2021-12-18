@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:core_event/domain/controller/newstatus.dart';
+//import 'package:core_event/domain/controller/newstatus.dart';
 import 'package:core_event/domain/models/user_status.dart';
+import 'package:core_event/domain/use_cases/controllers/authentication.dart';
 import 'package:core_event/domain/use_cases/controllers/connectivity.dart';
 import 'package:core_event/domain/use_cases/status_management.dart';
 import 'package:core_event/ui/pages/content/user_feeds/widgets/newcard.dart';
 import 'package:core_event/ui/pages/content/user_feeds/widgets/state_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-
 
 class StatesScreen extends StatefulWidget {
   // StatesScreen empty constructor
@@ -30,13 +30,14 @@ class _State extends State<StatesScreen> {
     manager = StatusManager();
     statusesStream = manager.getStatusesStream();
     controller = Get.find<ConnectivityController>();
-
   }
 
   @override
   Widget build(BuildContext context) {
+    final AuthController authController = Get.find<AuthController>();
+    User user = authController.currentUser!;
     //return GetX<StatusController>(builder: (statuscontrolador){
-      return Column(
+    return Column(
       children: [
         Expanded(
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
@@ -55,7 +56,17 @@ class _State extends State<StatesScreen> {
                       content: status.message,
                       picUrl: status.picUrl,
                       onDelete: () {
-                        manager.removeStatus(status);
+                        if (status.title == "${user.displayName}") {
+                          manager.removeStatus(status);
+                        } else {
+                          Get.snackbar(
+                            "Eliminación no Permitida",
+                            "No pude eliminar estados que no seam los suyos",
+                            icon: const Icon(Icons.person, color: Colors.black),
+                            duration: const Duration(seconds: 5),
+                            backgroundColor: Colors.red[900],
+                          );
+                        }
                       },
                     );
                   },
@@ -70,28 +81,26 @@ class _State extends State<StatesScreen> {
           ),
         ),
         Positioned(
-            right: 20,
-            bottom: 30,
-            child: FloatingActionButton(           
-              onPressed: () {
-                if (controller.connected) {
-                  Get.dialog(
-                    PublishDialog(
-                      manager: manager,
-                    ),
-                  );
-                } else {
-                  Get.snackbar(
-                    "Error de conectividad",
-                    "No se encuentra conectado a internet.",
-                  );
-                
-                }
-                
-              },
-              child: const Icon(Icons.add),
-            ),
+          right: 20,
+          bottom: 30,
+          child: FloatingActionButton(
+            onPressed: () {
+              if (controller.connected) {
+                Get.dialog(
+                  PublishDialog(
+                    manager: manager,
+                  ),
+                );
+              } else {
+                Get.snackbar(
+                  "Error de conectividad",
+                  "No se encuentra conectado a internet.",
+                );
+              }
+            },
+            child: const Icon(Icons.add),
           ),
+        ),
       ],
     );
     //   return Stack(
@@ -121,14 +130,7 @@ class _State extends State<StatesScreen> {
     //         ))
     //   ],
     // );
-    
-    
-    
-    
-    
-    
-    
+
     //});
-    
   }
 }

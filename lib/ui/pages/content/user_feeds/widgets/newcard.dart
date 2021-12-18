@@ -10,7 +10,7 @@ class PublishDialog extends StatefulWidget {
   final StatusManager manager;
 
   const PublishDialog({Key? key, required this.manager}) : super(key: key);
-  
+
   @override
   createState() => _State();
 }
@@ -38,7 +38,7 @@ class _State extends State<PublishDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "Publicar Estado",
+              "Publicar su Estado",
               style: Theme.of(context).textTheme.headline2,
             ),
             Padding(
@@ -50,7 +50,8 @@ class _State extends State<PublishDialog> {
                 maxLines: null,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Estado',
+                  labelText: 'Escriba su estado',
+                  hintText: 'Escriba su estado',
                 ),
               ),
             ),
@@ -63,19 +64,20 @@ class _State extends State<PublishDialog> {
                     onPressed: _buttonDisabled
                         ? null
                         : () {
-                        User user = controller.currentUser!;
-                        UserStatus status = UserStatus(
-                          message: stateController.text, 
-                          title: user.displayName!,//'Usuario', 
-                          picUrl: 'https://uifaces.co/our-content/donated/gPZwCbdS.jpg', 
-                          email: user.email!
-                          );
-                        //estadocontrolador.addstatusmodel(status); //Comentado para enlazar firebase
-                        widget.manager.sendStatus(status).then(
-                        (value) => Get.back());
-                              //   //);
-                              // });
-                          //Get.back();
+                            User user = controller.currentUser!;
+                            UserStatus status = UserStatus(
+                                message: stateController.text,
+                                title: user.displayName!, //'Usuario',
+                                picUrl:
+                                    'https://uifaces.co/our-content/donated/gPZwCbdS.jpg',
+                                email: user.email!);
+                            //estadocontrolador.addstatusmodel(status); //Comentado para enlazar firebase
+                            widget.manager
+                                .sendStatus(status)
+                                .then((value) => Get.back());
+                            //   //);
+                            // });
+                            Get.back();
                           },
                   ),
                 ),
@@ -86,6 +88,7 @@ class _State extends State<PublishDialog> {
       ),
     );
   }
+
   @override
   void dispose() {
     stateController.dispose();

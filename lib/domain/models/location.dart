@@ -12,7 +12,7 @@ class UserLocation {
     return UserLocation(
         name: map['name'],
         type: map['type'].toString(),
-        distance: map['distance'] / 1000);
+        distance: map['distance'] / 10000);
   }
 }
 

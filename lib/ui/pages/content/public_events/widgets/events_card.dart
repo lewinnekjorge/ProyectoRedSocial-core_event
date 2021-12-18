@@ -48,7 +48,10 @@ class ResponseCard extends StatelessWidget {
             const GetSnackBar(
               message:
                   "Se ha copiado el evento al portapapeles, para que lo compartas por chat.",
-              duration: Duration(seconds: 3),
+              icon: Icon(Icons.copy_rounded, color: Colors.black),
+              duration: Duration(seconds: 8),
+              snackPosition: SnackPosition.TOP,
+              backgroundColor: Colors.orange,
             ),
           );
         },

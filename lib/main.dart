@@ -7,22 +7,37 @@ import 'domain/models/location.dart';
 import 'ui/app.dart';
 import 'ui/pages/content_start.dart';
 import 'package:core_event/domain/use_cases/location_management.dart';
+import 'package:core_event/domain/use_cases/controllers/notifications.dart';
+import 'package:core_event/domain/use_cases/notification_management.dart';
 import 'package:core_event/data/services/location.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.lazyPut<InicioWidget>(() => const InicioWidget(title: 'main'));
-  Workmanager().initialize(
+  NotificationController notificationController =
+      Get.put(NotificationController());
+  await notificationController.initialize();
+
+  notificationController.createChannel(
+      id: '', name: '', description: 'Mi Ubicacion es ');
+
+  await Workmanager().initialize(
     updatePositionInBackground,
     isInDebugMode: true,
+  );
+  await Workmanager().registerPeriodicTask(
+    "10",
+    "locationPeriodicTask",
   );
   runApp(const App());
 }
 
 void updatePositionInBackground() async {
   final manager = LocationManager();
+  final _manager = NotificationManager();
   final service = LocationService();
   Workmanager().executeTask((task, inputData) async {
+    await _manager.initialize();
     final position = await manager.getCurrentLocation();
     final details = await manager.retrieveUserDetails();
     var location = MyLocation(
@@ -30,6 +45,14 @@ void updatePositionInBackground() async {
         id: details['uid']!,
         lat: position.latitude,
         long: position.longitude);
+    final _channel = _manager.createChannel(
+        id: details['uid']!,
+        name: details['name']!,
+        description: 'Mi Ubicacion es ');
+    _manager.showNotification(
+        channel: _channel,
+        title: 'Tu Ubicacion es ',
+        body: 'Latitud ${position.latitude}, longitude: ${position.longitude}');
     await service.fecthData(
       map: location.toJson,
     );

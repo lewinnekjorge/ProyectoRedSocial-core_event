@@ -8,7 +8,7 @@ class LocationService implements MisionTicService {
   final String apiKey = 'WwMdkYtvSRxGcJUZ2ypXP.tsKj2Xhw9VeT3j0E581BjjZz2oLnaci';
 
   @override
-  Future<List<UserLocation>> fecthData({int limit = 5, Map? map}) async {
+  Future<List<UserLocation>> fecthData({int limit = 10, Map? map}) async {
     var queryParameters = {'limit': limit.toString()};
     var uri = Uri.https(baseUrl, '/location', queryParameters);
     final response = await http.post(

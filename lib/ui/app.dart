@@ -10,7 +10,7 @@ import 'package:core_event/domain/use_cases/theme_management.dart';
 import 'package:core_event/domain/use_cases/controllers/permissions.dart';
 import 'package:core_event/domain/use_cases/permission_management.dart';
 import 'package:core_event/domain/use_cases/controllers/location.dart';
-import 'package:core_event/domain/use_cases/controllers/notification.dart';
+import 'package:core_event/domain/use_cases/controllers/notifications.dart';
 import 'package:core_event/domain/use_cases/auth_management.dart';
 import 'package:core_event/domain/use_cases/controllers/authentication.dart';
 import 'package:core_event/domain/repositories/auth.dart';
@@ -55,7 +55,7 @@ class _AppState extends State<App> {
           _firebaseStateInit();
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Core Event v2',
+            title: 'Core Event v2.1',
             //theme: ThemeData(primarySwatch: Colors.black),
             theme: MyTheme.ligthTheme,
             // Establecemos el tema oscuro

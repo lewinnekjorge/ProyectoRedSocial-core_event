@@ -14,7 +14,7 @@ class StateCard extends StatelessWidget {
   //late Stream<QuerySnapshot<Map<String, dynamic>>> statusesStream;
 
   // StateCard constructor
-  StateCard(
+  const StateCard(
       {Key? key,
       required this.title,
       //required this.index,
@@ -56,19 +56,19 @@ class StateCard extends StatelessWidget {
       ),
       // topRightWidget widget as an IconButton
       topRightWidget: IconButton(
-          icon: Icon(
-            Icons.delete,
-            color: primaryColor,
-          ),
-          onPressed: onDelete,//() {
-            //StatusController statusController = Get.find();
+        icon: Icon(
+          Icons.delete,
+          color: primaryColor,
+        ),
+        onPressed: onDelete, //() {
+        //StatusController statusController = Get.find();
 
-            //print(statusController.liststados[index]);
-            //UserStatus status = statusController.liststados[index];
-            //manager.removeStatus(status);
-            //statusController.borrarestado(index);
-          //}
-          ),
+        //print(statusController.liststados[index]);
+        //UserStatus status = statusController.liststados[index];
+        //manager.removeStatus(status);
+        //statusController.borrarestado(index);
+        //}
+      ),
     );
   }
 }

@@ -8,7 +8,7 @@ class EventPoolService implements MisionTicService {
   final String clientID = 'MjM5OTUyMTZ8MTYzNDY2NjQ2MC45MjM4MjQz';
 
   @override
-  Future<List<EventModel>> fecthData({int limit = 5, Map? map}) async {
+  Future<List<EventModel>> fecthData({int limit = 10, Map? map}) async {
     var queryParameters = {'client_id': clientID};
     var uri = Uri.https(baseUrl, '/2/events', queryParameters);
     final response = await http.get(
