@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:core_event/domain/repositories/auth.dart';
 
-class PasswordAuth extends GetxController implements AuthInterface {
+class PasswordAuth implements AuthInterface {
   @override
   Future<bool> signIn({required String email, required String password}) async {
     try {
@@ -60,11 +60,12 @@ class PasswordAuth extends GetxController implements AuthInterface {
       final userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       userCredential.user!.updateDisplayName(name);
-      Get.offNamed('/feed_screen');
+      Get.offNamed('/usr_login');
       Get.snackbar(
-        "Se Registro y obtuvo acceso",
-        'OK',
+        "Creacion de Usuario, satisfatoria ",
+        'Por favor acceda con su nuevo usuario y password',
         icon: const Icon(Icons.person, color: Colors.red),
+        duration: const Duration(seconds: 5),
         snackPosition: SnackPosition.BOTTOM,
       );
       return true;
@@ -80,7 +81,7 @@ class PasswordAuth extends GetxController implements AuthInterface {
             'La seguridad de la contraseña es muy débil, digite de nuevo.');
       } else if (e.code == 'email-already-in-use') {
         Get.snackbar(
-          "Email inválido",
+          "Email ya existe",
           "Ya existe un usuario con este correo electrónico.",
           icon: const Icon(Icons.person, color: Colors.red),
           snackPosition: SnackPosition.BOTTOM,

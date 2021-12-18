@@ -11,7 +11,7 @@ class AuthManagement {
     try {
       return await auth.signIn(email: email, password: password);
     } catch (e) {
-      rethrow;
+      return false;
     }
   }
 
@@ -22,7 +22,7 @@ class AuthManagement {
     try {
       return await auth.signUp(name: name, email: email, password: password);
     } catch (e) {
-      rethrow;
+      return false;
     }
   }
 
@@ -30,7 +30,8 @@ class AuthManagement {
     try {
       return await auth.signOut();
     } catch (e) {
-      rethrow;
+      //rethrow;
+      return false;
     }
   }
 }
