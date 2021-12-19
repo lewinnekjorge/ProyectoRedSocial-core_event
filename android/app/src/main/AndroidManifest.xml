@@ -11,7 +11,7 @@
       </intent>
   </queries>
   <application
-      android:label="Core Event Social"
+      android:label="Red Social Core Event"
       android:icon="@mipmap/ic_launcher"
       android:logo="@mipmap/ic_launcher">
       <activity

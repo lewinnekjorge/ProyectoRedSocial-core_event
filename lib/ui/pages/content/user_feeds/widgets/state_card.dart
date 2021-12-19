@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:core_event/domain/controller/newstatus.dart';
-import 'package:core_event/domain/models/user_status.dart';
-import 'package:core_event/domain/use_cases/status_management.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:core_event/domain/controller/newstatus.dart';
+//import 'package:core_event/domain/models/user_status.dart';
+//import 'package:core_event/domain/use_cases/status_management.dart';
 import 'package:flutter/material.dart';
 import 'package:core_event/ui/widgets/card.dart';
-import 'package:get/get.dart';
+//import 'package:get/get.dart';
 
 class StateCard extends StatelessWidget {
   final String title, content, picUrl;
