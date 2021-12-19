@@ -44,6 +44,7 @@ class _State extends State<PublishDialog> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: TextField(
+                key: const Key("cardField"),
                 controller: stateController,
                 keyboardType: TextInputType.multiline,
                 // dynamic text lines
@@ -60,17 +61,24 @@ class _State extends State<PublishDialog> {
               children: [
                 Expanded(
                   child: ElevatedButton(
+                    key: const Key("publicar"),
                     child: const Text("Publicar"),
                     onPressed: _buttonDisabled
                         ? null
                         : () {
                             User user = controller.currentUser!;
+                            String? U;
+                            String? E;
+                            if (user.displayName == null){
+                            U = "Usuario";
+                            E = "email@email.com";
+                            } else{ U = user.displayName; E = user.email;}
                             UserStatus status = UserStatus(
                                 message: stateController.text,
-                                title: user.displayName!, //'Usuario',
+                                title: U!,//'Usuario', 
                                 picUrl:
                                     'https://uifaces.co/our-content/donated/gPZwCbdS.jpg',
-                                email: user.email!);
+                                email: E!);
                             //estadocontrolador.addstatusmodel(status); //Comentado para enlazar firebase
                             widget.manager
                                 .sendStatus(status)

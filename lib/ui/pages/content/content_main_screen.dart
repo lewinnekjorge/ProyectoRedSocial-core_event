@@ -61,14 +61,16 @@ class _FeedScreenState extends State<FeedScreen> {
         activeColor: primaryColor,
         currentIndex: _selectedTab,
         items: const [
+          BottomNavigationBarItem(              
+              icon: Icon(Icons.feed_rounded, key: Key("statesSection")), label: "Estados"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.feed_rounded), label: "Estados"),
+              icon: Icon(Icons.local_activity, key: Key("events")), label: "Eventos"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.local_activity), label: "Eventos"),
-          BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: "Chat"),
+              icon: Icon(Icons.chat_bubble, key: Key("chat")), label: "Chat"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.location_on), label: "Ubicación"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Ajustes"),
+              icon: Icon(Icons.location_on, key: Key("ubicacion")), label: "Ubicación"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person, key: Key("conf")), label: "Ajustes"),
         ],
       ),
     );

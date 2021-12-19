@@ -31,8 +31,17 @@ class _State extends State<LocationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _uid = authController.currentUser!.uid;
-    final _name = authController.currentUser!.displayName ?? "User";
+    String uid;
+    String name;
+    if (authController.currentUser?.displayName == null){
+                        uid = "Usuario";
+                        name = "Usuario";
+                        } else{ uid = authController.currentUser!.uid;
+                        name = authController.currentUser!.displayName ?? "User";
+                        }
+    
+    final _uid = uid;
+    final _name = name;
     _init(_uid, _name);
     return SingleChildScrollView(
       child: Column(
