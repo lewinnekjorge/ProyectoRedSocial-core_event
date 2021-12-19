@@ -77,7 +77,7 @@ class _State extends State<PublishDialog> {
                                 .then((value) => Get.back());
                             //   //);
                             // });
-                            Get.back();
+                            //Get.back();
                           },
                   ),
                 ),
