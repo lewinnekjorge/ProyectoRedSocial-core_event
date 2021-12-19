@@ -36,8 +36,10 @@ class ResponseCard extends StatelessWidget {
       ),
       // topRightWidget widget as an IconButton
       topRightWidget: IconButton(
+        //key: const ValueKey("btnCopiar"),
         icon: Icon(
           Icons.copy_outlined,
+          //key: const ValueKey("btnCopiar"),
           color: primaryColor,
         ),
         onPressed: () {
@@ -46,6 +48,7 @@ class ResponseCard extends StatelessWidget {
                   '${title} -  Es un : ${type} - Pais : ${country} - Ciudad : ${city} - Direcciòn : ${address} - A las : ${datetimeEvent.toString()}'));
           Get.showSnackbar(
             const GetSnackBar(
+              key: Key("copiado"),
               message:
                   "Se ha copiado el evento al portapapeles, para que lo compartas por chat.",
               icon: Icon(Icons.copy_rounded, color: Colors.black),

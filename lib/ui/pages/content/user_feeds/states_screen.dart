@@ -40,6 +40,7 @@ class _State extends State<StatesScreen> {
     return Column(
       children: [
         Expanded(
+          key: const Key("Card"),
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: statusesStream,
             builder: (BuildContext context,
@@ -81,6 +82,7 @@ class _State extends State<StatesScreen> {
           ),
         ),
         FloatingActionButton(
+          key: const Key("btn_card"),
           onPressed: () {
               if (controller.connected) {
                 Get.dialog(

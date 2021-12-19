@@ -44,6 +44,7 @@ class _State extends State<ConfScreen> {
 
       // ignore: prefer_const_constructors
       TextFormField(
+        key: const Key("int"),
         keyboardType: TextInputType.number,
         validator: (input) {
           final isDigitsOnly = int.tryParse(input!);

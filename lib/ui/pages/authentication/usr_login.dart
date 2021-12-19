@@ -50,6 +50,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       width: 300,
                     ),
                     TextFormField(
+                      key: const Key("signInEmail"),
                       keyboardType: TextInputType.emailAddress,
                       controller: controllerEmail,
                       decoration: const InputDecoration(
@@ -75,6 +76,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       width: 300,
                     ),
                     TextFormField(
+                      key: const Key("signInPassword"),
                       controller: controllerPassword,
                       obscureText: true,
                       obscuringCharacter: "*",

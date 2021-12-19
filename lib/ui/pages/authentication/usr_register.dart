@@ -54,6 +54,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 height: 15,
               ),
               TextFormField(
+                key: const Key("signUpName"),
                 controller: controllerName,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -74,6 +75,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 height: 15,
               ),
               TextFormField(
+                key: const Key("signUpEmail"),
                 controller: controllerEmail,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -100,6 +102,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 height: 15,
               ),
               TextFormField(
+                key: const Key("signUpPassword"),
                 controller: controllerPassword,
                 obscureText: true,
                 obscuringCharacter: "*",
@@ -124,6 +127,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 height: 20,
               ),
               Material(
+                key: const Key("toSignUpButton"),
                 elevation: 5,
                 color: Colors.deepPurple,
                 borderRadius: BorderRadius.circular(30),

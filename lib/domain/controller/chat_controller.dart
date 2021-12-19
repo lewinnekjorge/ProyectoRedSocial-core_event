@@ -45,7 +45,10 @@ class ChatController extends GetxController {
   }
 
   Future<void> sendMsg(String text) async {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String uid;
+    if (FirebaseAuth.instance.currentUser?.uid == null){
+                        uid = "Usuario";
+                        } else{ uid = FirebaseAuth.instance.currentUser!.uid;}
     try {
       databaseReference
           .child("coremessages")

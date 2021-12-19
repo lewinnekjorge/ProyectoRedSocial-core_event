@@ -88,6 +88,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return GetX<ChatController>(builder: (controller) {
       WidgetsBinding.instance!.addPostFrameCallback((_) => _scrollToEnd());
       return ListView.builder(
+        key: const ValueKey("mensaje"),
         cacheExtent: 100,
         controller: _scrollController,
         reverse: false,
@@ -111,6 +112,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget _textInput() {
     Color primaryColor = Theme.of(context).colorScheme.primary;
     return Row(
+      key: const ValueKey("chatField"),
       children: [
         Expanded(
           flex: 3,
