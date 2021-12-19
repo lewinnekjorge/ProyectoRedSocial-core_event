@@ -80,11 +80,8 @@ class _State extends State<StatesScreen> {
             },
           ),
         ),
-        Positioned(
-          right: 20,
-          bottom: 30,
-          child: FloatingActionButton(
-            onPressed: () {
+        FloatingActionButton(
+          onPressed: () {
               if (controller.connected) {
                 Get.dialog(
                   PublishDialog(
@@ -99,8 +96,7 @@ class _State extends State<StatesScreen> {
               }
             },
             child: const Icon(Icons.add),
-          ),
-        ),
+          )
       ],
     );
     //   return Stack(
