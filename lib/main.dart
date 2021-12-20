@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+//import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:workmanager/workmanager.dart';
@@ -23,7 +22,7 @@ Future<void> main() async {
 
   await Workmanager().initialize(
     updatePositionInBackground,
-    isInDebugMode: true,
+    isInDebugMode: false,
   );
   await Workmanager().registerPeriodicTask(
     "10",
@@ -51,12 +50,12 @@ void updatePositionInBackground() async {
         description: 'Mi Ubicacion es ');
     _manager.showNotification(
         channel: _channel,
-        title: 'Tu Ubicacion es ',
+        title: location.name + 'Tu Ubicacion es :',
         body: 'Latitud ${position.latitude}, longitude: ${position.longitude}');
     await service.fecthData(
       map: location.toJson,
     );
-    log("updated location background"); //simpleTask will be emitted here.
+    //log("updated location background"); //simpleTask will be emitted here.
     //print("updated location background"); //simpleTask will be emitted here.
     return Future.value(true);
   });
