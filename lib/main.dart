@@ -25,7 +25,7 @@ Future<void> main() async {
     isInDebugMode: false,
   );
   await Workmanager().registerPeriodicTask(
-    "10",
+    "2",
     "locationPeriodicTask",
   );
   runApp(const App());
@@ -50,8 +50,9 @@ void updatePositionInBackground() async {
         description: 'Mi Ubicacion es ');
     _manager.showNotification(
         channel: _channel,
-        title: location.name + 'Tu Ubicacion es :',
-        body: 'Latitud ${position.latitude}, longitude: ${position.longitude}');
+        title: details['name']!,
+        body:
+            'Tu Ubicaciòn es : Latitud ${position.latitude}, longitude: ${position.longitude}');
     await service.fecthData(
       map: location.toJson,
     );
